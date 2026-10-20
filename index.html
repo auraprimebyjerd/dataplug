@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DataPlug – Instant data, no stress</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0b1118;--card:#131c26;--line:#1f2b38;--text:#f4f6f8;--mute:#8a98a8;--gold:#facc15;--goldd:#d9a90b;--ink:#0b1118;--tc:#e0122b;--ok:#25d366;--note:#0f2a2c;--noteb:#1b4a4a;--notet:#7fe3d6;color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f4ee;--card:#fff;--line:#e6e1d3;--text:#121820;--mute:#667283;--note:#e8f6f3;--noteb:#bfe5de;--notet:#0c6b5e;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f6f4ee;--card:#fff;--line:#e6e1d3;--text:#121820;--mute:#667283;--note:#e8f6f3;--noteb:#bfe5de;--notet:#0c6b5e;color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font-family:Outfit,system-ui,sans-serif;max-width:480px;margin:0 auto;padding:0 16px 40px}
+header{display:flex;align-items:center;gap:10px;padding:16px 0}
+.logo{width:34px;height:34px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-weight:800;font-size:12px}
+.brand{flex:1;font-weight:700}
+.ib{background:none;border:0;color:var(--mute);font-size:18px;cursor:pointer;padding:6px}
+.eyebrow{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em;margin-top:8px}
+h1{font-size:30px;line-height:1.1;font-weight:800;margin:8px 0}
+.sub{color:var(--mute);font-size:14px;line-height:1.5}
+.note{background:var(--note);border:1px solid var(--noteb);color:var(--notet);border-radius:14px;padding:14px;font-size:13px;line-height:1.5;margin:18px 0}
+.row{display:flex;justify-content:space-between;align-items:baseline;margin-top:6px}
+.row small{color:var(--mute);font-size:12px}
+h2{font-size:22px;font-weight:700;margin-bottom:12px}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:5px;margin:12px 0 16px}
+.tab{flex:1;border:0;border-radius:10px;padding:12px;background:none;color:var(--mute);font:600 14px Outfit,sans-serif;cursor:pointer}
+.tab.on[data-n="mtn"]{background:var(--gold);color:var(--ink)}
+.tab.on[data-n="tc"]{background:var(--tc);color:#fff}
+.bundle{border-radius:20px;padding:18px;margin-bottom:12px;color:var(--ink);background:var(--gold)}
+.bundle.tc{background:var(--tc);color:#fff}
+.top{display:flex;justify-content:space-between;align-items:center}
+.chip{font-size:10px;font-weight:700;border:1.5px solid currentColor;border-radius:99px;padding:2px 8px;display:inline-block}
+.tag{font-size:10px;font-weight:800;background:var(--ink);color:var(--gold);border-radius:6px;padding:3px 7px;margin-left:6px}
+.tc .tag{background:#fff;color:var(--tc)}
+.mid{display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px}
+.gb{font-size:34px;font-weight:800;line-height:1}
+.net{font-size:12px;opacity:.75;margin-top:4px}
+.price{font-size:20px;font-weight:800;text-align:right}.price small{display:block;font-size:11px;font-weight:500;opacity:.75}
+.exp{display:none;border-top:1px solid rgba(0,0,0,.15);margin-top:14px;padding-top:14px;align-items:center;justify-content:space-between;gap:10px;font-size:12px}
+.tc .exp{border-color:rgba(255,255,255,.25)}
+.bundle.open .exp{display:flex}
+.buy{text-decoration:none;display:inline-block;border:0;border-radius:12px;padding:12px 16px;font:700 13px Outfit,sans-serif;cursor:pointer;background:var(--ink);color:var(--gold);white-space:nowrap}
+.tc .buy{background:#fff;color:var(--tc)}
+.caret{background:rgba(0,0,0,.12);border:0;border-radius:10px;width:34px;height:34px;color:inherit;cursor:pointer;font-size:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:14px}
+.panel h3{font-size:16px;margin:8px 0 4px}.panel p{color:var(--mute);font-size:13px;line-height:1.5;margin-bottom:14px}
+.btn{display:block;width:100%;text-align:center;text-decoration:none;border:0;border-radius:12px;padding:14px;font:700 14px Outfit,sans-serif;cursor:pointer;margin-top:8px;background:var(--gold);color:var(--ink)}
+.btn.g{background:var(--ok);color:#06210f}
+.ico{width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font-size:18px}
+.ico.g{background:var(--ok)}
+footer{display:flex;justify-content:space-between;color:var(--mute);font-size:12px;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;justify-content:center;z-index:20}
+#ov.on{display:flex}
+.sheet{background:var(--card);width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom,0px))}
+.sh{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:14px}
+.sel{background:var(--note);border:1px solid var(--noteb);border-radius:12px;padding:12px;font-size:13px;font-weight:600;color:var(--notet);margin-bottom:14px}
+label{font-size:13px;font-weight:600}
+input{width:100%;margin-top:8px;background:var(--bg);color:var(--text);border:2px solid var(--gold);border-radius:12px;padding:14px;font:500 16px Outfit,sans-serif}
+.hint{color:var(--mute);font-size:12px;margin:8px 0 14px}
+.err{color:#ff6b6b;font-size:12px;min-height:16px;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">DP</div><div class="brand" id="brand"></div>
+  <button class="ib" id="th" aria-label="Toggle theme">◐</button>
+</header>
+<div class="eyebrow">INSTANT DATA, NO STRESS</div>
+<h1>Pick a bundle. Stay connected.</h1>
+<p class="sub">Cheap data bundles sent straight to your number. No expiry, no wahala.</p>
+<div class="note"><b>Fast delivery.</b> Double-check your number before paying. Completed orders cannot be reversed.</div>
+<div class="row"><small>Choose your network</small><small id="cnt"></small></div>
+<h2>Data packages</h2>
+<div class="tabs">
+  <button class="tab on" data-n="mtn">MTN</button>
+  <button class="tab" data-n="tc">Telecel</button>
+</div>
+<div id="list"></div>
+
+<div class="panel"><div class="ico">👥</div><h3>Become a reseller</h3><p>Sign up as a sub-agent under DataPlug and start selling at your own prices.</p><a class="btn" id="rs" target="_blank" rel="noopener">Start selling →</a></div>
+<div class="panel"><div class="ico g">💬</div><h3>WhatsApp</h3><p>Get support and deals from DataPlug on WhatsApp.</p><a class="btn g" id="wc" target="_blank" rel="noopener">Follow our channel →</a><a class="btn g" id="ws" target="_blank" rel="noopener">WhatsApp the store →</a></div>
+<footer><span>Track your order</span><span>Secured by Paystack</span></footer>
+
+<div id="ov"><div class="sheet">
+  <div class="sh"><span>Complete your purchase</span><button class="ib" id="x" aria-label="Close">✕</button></div>
+  <div class="sel" id="sel"></div>
+  <label for="ph">Phone number to receive data</label>
+  <input id="ph" type="tel" inputmode="numeric" maxlength="10" placeholder="0241234567" autocomplete="tel">
+  <div class="hint">Enter the number that will receive the data bundle.</div>
+  <div class="err" id="err"></div>
+  <button class="btn" id="pay"></button>
+  <div class="hint" style="text-align:center;margin:10px 0 0">Secured by Paystack</div>
+</div></div>
+
+<script>
+// ===== EDIT THESE =====
+var CFG={name:"DataPlug",whatsapp:"233531816129",community:"https://whatsapp.com/channel/0029VbDUSIwA2pLIVgMf0c0B",reseller:"https://sprintdatagh.com/dashboard",buy:"https://mzguest.researchershubgh.com/buy/UPFMTKJYKI"};
+var DATA={
+ mtn:[[1,4.8],[2,9.8,"POPULAR"],[3,14.7],[4,19.7],[5,23.5],[8,36.5],[10,43.99],[15,63],[20,83],[25,102],[30,123],[40,163],[50,198]],
+ tc:[[5,22],[10,43],[15,62],[20,82],[30,120],[40,148],[50,193],[100,360,"BEST VALUE"]]
+};
+var NAMES={mtn:"MTN",tc:"Telecel"},net="mtn",pick=null,open=-1;
+var $=function(i){return document.getElementById(i)};
+function money(n){return "GH\u20B5"+n.toFixed(2)}
+$("brand").textContent=CFG.name;
+$("rs").href=CFG.reseller;$("wc").href=CFG.community;
+$("ws").href="https://wa.me/"+CFG.whatsapp;
+function render(){
+  var d=DATA[net];$("cnt").textContent=d.length+" available";
+  $("list").innerHTML=d.map(function(b,i){
+    return '<div class="bundle '+net+(i===open?' open':'')+'" data-i="'+i+'">'+
+    '<div class="top"><span><span class="chip">'+(net==="mtn"?"MTN":"TC")+'</span>'+(b[2]?'<span class="tag">'+b[2]+'</span>':'')+'</span><button class="caret">'+(i===open?"▲":"▼")+'</button></div>'+
+    '<div class="mid"><div><div class="gb">'+b[0]+' GB</div><div class="net">'+NAMES[net]+' Bundle</div></div><div class="price">'+money(b[1])+'<small>No Expiry</small></div></div>'+
+    '<div class="exp"><span>Data is sent directly to your '+NAMES[net]+' number.</span><a class="buy" href="'+CFG.buy+'" target="_blank" rel="noopener">Buy '+b[0]+' GB →</a></div></div>';
+  }).join("");
+}
+$("list").addEventListener("click",function(e){
+  var buy=e.target.closest(".buy");
+  if(buy){return}
+  var c=e.target.closest(".bundle");if(c){var i=+c.dataset.i;open=open===i?-1:i;render()}
+});
+document.querySelectorAll(".tab").forEach(function(t){t.onclick=function(){
+  document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("on")});
+  t.classList.add("on");net=t.dataset.n;open=-1;render()}});
+function close(){$("ov").classList.remove("on")}
+$("x").onclick=close;$("ov").onclick=function(e){if(e.target===$("ov"))close()};
+$("ph").oninput=function(){this.value=this.value.replace(/\D/g,"")};
+$("pay").onclick=function(){
+  var p=$("ph").value;
+  if(!/^0\d{9}$/.test(p)){$("err").textContent="Enter a valid 10-digit number, e.g. 0241234567";return}
+  var msg="Hi "+CFG.name+", I want "+NAMES[net]+" "+pick[0]+"GB ("+money(pick[1])+") for "+p+".";
+  window.open("https://wa.me/"+CFG.whatsapp+"?text="+encodeURIComponent(msg),"_blank");
+  close();
+};
+$("th").onclick=function(){
+  var r=document.documentElement,dark=getComputedStyle(r).colorScheme.indexOf("dark")>-1;
+  r.setAttribute("data-theme",dark?"light":"dark");
+};
+render();
+</script>
+</body>
+</html>
